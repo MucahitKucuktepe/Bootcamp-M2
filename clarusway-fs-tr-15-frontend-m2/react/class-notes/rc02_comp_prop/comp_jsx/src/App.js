@@ -1,8 +1,18 @@
+/* eslint-disable no-unused-vars */
+import Header from "./header"
+import footer from "./footer"
+import { Main } from "./main"
+import Footer from "./footer"
+import "./app.css"
+
 function App() {
   return (
-    <div>
+    <>
       <h1>Merhaba Ben React Öğreniyorum</h1>
-    </div>
+      <Header></Header>
+      <Footer/>
+      <Main/>
+    </>
   )
 }
 
