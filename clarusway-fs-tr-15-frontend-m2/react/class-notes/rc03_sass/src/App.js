@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Header />
-      <Card veri ={data} />
+      <Card veri ={data}/>
       <Footer />
     </>
   )
