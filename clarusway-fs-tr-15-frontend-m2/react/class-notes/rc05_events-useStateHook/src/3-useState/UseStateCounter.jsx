@@ -17,49 +17,26 @@
 //*    (Custom hook'lar icerisinde bir hook cagrilabilir)
 //?    https://react.dev/reference/react/hooks#state-hooks
 //* =============================================================
-import { useState } from "react";
 
+import React, { useState } from "react";
 
 const UseStateCounter = () => {
-//   let count = 0;
-const [sayac,setSayac]=useState(0)
-console.log(sayac);
+  // let count=0
 
-  const handleInc=()=>{
-    // sayac =sayac +1
-    setSayac(sayac + 1)
-
-  }
-  const handleAzalt=()=>{
-    if(sayac>0){
-        setSayac(sayac-1)
-    }else{
-        alert("sayac negatif deger alamaz")
-    }
+  const [count, setCount]=useState(0)
+  console.log(count);
+  const handleIncrement =()=>{
+    setCount(count +1)
+    // count= count +1
+    console.log(count);
   }
   return (
     <div>
-      <h1>UseStateCounter</h1>
-      <h2>Count:{sayac} </h2>
-
-      <button onClick={handleInc}>INC</button>
-      {/* Eger setSayac metodunu callback ile yazmazsak bu metot ilk acilistan itibaren doğrudan cagirilmis olur. Bu durumda da sayac state'ini gunceller. State guncellendigi icinde component re-render olur. Re-render ise yeniden setSayac araciligi ile state'in guncellenmesine yol acar ve sonsuz donguye girer */}
-      {/* <button onClick={() => sayac > 0 && setSayac(sayac - 1)}>DEC</button> */}
-
-      {/* <button
-        onClick={() => {
-          if (sayac > 0) {
-            setSayac(sayac - 1)
-          } else {
-            alert("Sayac negatif deger olamaz")
-          }
-        }}
-      >
-        Azalt
-      </button> */}
-
-      <button onClick={handleAzalt}>DEC</button>
-      <button onClick={() => setSayac(0)}>CLR</button>
+      <h1>UseState Counter</h1>
+      <h2>Count:{count} </h2>
+      <button onClick={handleIncrement} >INC</button>
+      <button onClick={()=> count >0 && setCount(count -1)} >DEC</button>
+      <button onClick={()=>setCount(0)} >CLR</button>
     </div>
   );
 };
