@@ -3,7 +3,7 @@
 // import KeyboardClipboard from "./components/2-keyboardClipboardEvents/KeyboardClipboard"
 // import MouseEvent from "./components/3-mouseEvents/MouseEvent"
 
-import Postclass from "./components/1-forms/Postclass"
+// import Postclass from "./components/1-forms/Postclass"
 import KeyboarPostClass from "./components/2-keyboardClipboardEvents/KeyboarPostClass"
 
 function App() {
