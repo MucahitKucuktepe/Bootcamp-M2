@@ -1,17 +1,22 @@
-import LifeCycleMethods from "./components/LifeCycleMethods"
+// import LifeCycleMethods from "./components/LifeCycleMethods"
 import UseEffectHook from "./components/UseEffectHook"
 import { useState } from "react"
+import User from "./components/User";
 
 function App() {
-  const [göster, setGöster] = useState(true)
+  const [goster, setGoster] = useState(true)
   return (
     <div className="container text-center mt-4">
-      
-      <UseEffectHook />
-      {göster  && <LifeCycleMethods /> }
-      <button onClick={()=>setGöster(!göster)} className="btn btn-danger mt-2">Gizle/Göster</button>
+      <button className="btn btn-danger" onClick={() => setGoster(!goster)}>
+        Gizle/Göster
+      </button>
+{/* 
+      {/* {goster && <LifeCycleMethods />} */}
+
+      {/* {goster && <UseEffectHook />}  */}
+      {goster && <User />} 
     </div>
-  )
+  );
 }
 
 export default App
