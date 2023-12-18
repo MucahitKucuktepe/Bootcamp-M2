@@ -1,10 +1,23 @@
+import axios from "axios"
 import { useState } from "react"
 
-const AddTutorial = () => {
+const AddTutorial = ({getTutorials}) => {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
 
-  const handleSubmit = (e) => {}
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const newTutorial={title:title,description:description}
+    console.log(newTutorial);
+    postTutorial(newTutorial)
+    getTutorials()
+    setTitle("")
+    setDescription("")
+  }
+  const postTutorial= async (newTutorial)=>{
+    // const URL = "https://tutorial-api.fullstack.clarusway.com/tutorials/";
+    const res = await axios.post(process.env.REACT_APP_URL, newTutorial);
+  }
 
   return (
     <div className="container text-center mt-4">
@@ -38,7 +51,7 @@ const AddTutorial = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-danger mb-4">
+        <button type="submit" className="btn btn-danger mb-4" onClick={handleSubmit}>
           Submit
         </button>
       </form>

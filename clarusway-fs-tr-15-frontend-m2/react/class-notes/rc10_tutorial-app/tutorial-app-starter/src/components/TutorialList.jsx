@@ -1,19 +1,23 @@
-import { FaEdit } from "react-icons/fa"
+import { FaEdit, FaHandHolding } from "react-icons/fa"
 import { AiFillDelete } from "react-icons/ai"
+import axios from "axios"
 
-const TutorialList = () => {
-  const tutorials = [
-    {
-      id: 1,
-      title: "JS",
-      description: "JS is a programming language",
-    },
-    {
-      id: 2,
-      title: "React",
-      description: "JS library for UI design",
-    },
-  ]
+const TutorialList = ({tutorials}) => {
+  // const tutorials = [
+  //   {
+  //     id: 1,
+  //     title: "JS",
+  //     description: "JS is a programming language",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "React",
+  //     description: "JS library for UI design",
+  //   },
+  // ]
+  const deleteTutorial=()=>{
+    const res= axios.delete()
+  }
 
   return (
     <div className="container mt-4">
@@ -46,6 +50,7 @@ const TutorialList = () => {
                     size={22}
                     type="button"
                     className="text-danger "
+                    onClick={deleteTutorial}
                   />
                 </td>
               </tr>
