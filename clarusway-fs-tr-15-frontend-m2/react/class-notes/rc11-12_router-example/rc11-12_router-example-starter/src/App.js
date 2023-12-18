@@ -6,24 +6,38 @@ import People from "./pages/People";
 import NotFound from "./pages/NotFound";
 import Paths from "./pages/Paths";
 import PersonDetail from "./pages/PersonDetail";
+import Fullstack from "./pages/Fullstack";
+import Aws from "./pages/Aws";
+import Frontend from "./pages/Frontend";
+import Backend from "./pages/Backend";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/people" element={<People />} />
-          <Route path="/people/:idx" element={<PersonDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/paths" element={<Paths />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Nav />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/people" element={<People />} />
+        <Route path="/people/:idx" element={<PersonDetail />} />
+        <Route path="/contact" element={<Contact />} />
+
+        <Route path="/paths" element={<Paths />}>
+          <Route path="fs" element={<Fullstack />}>
+            <Route path="frontend" element={<Frontend />} />
+            <Route path="backend" element={<Backend />}/>
+           
+          </Route>
+          <Route path="aws" element={<Aws />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
+      <Footer />
+    </BrowserRouter>
   );
 }
 

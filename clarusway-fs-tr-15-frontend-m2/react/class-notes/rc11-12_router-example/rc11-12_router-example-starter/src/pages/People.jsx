@@ -28,7 +28,10 @@ const People = () => {
               key={id}
               className=" col-sm-12 col-md-6 col-lg-4"
               type="button"
-              onClick={()=>navigate(`/people/${id}`)}
+              //? Absolute
+              // onClick={() => navigate(`/people/${id}`)}
+              //?Relative
+              onClick={() => navigate(`${id}`)}
             >
               <img className="rounded" src={avatar} alt="img" />
               <h6>
