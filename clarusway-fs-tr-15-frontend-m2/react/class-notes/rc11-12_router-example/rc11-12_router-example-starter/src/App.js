@@ -21,16 +21,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/people" element={<People />} />
-        <Route path="/people/:idx" element={<PersonDetail />} />
+        <Route path="/people/:id" element={<PersonDetail />} />
         <Route path="/contact" element={<Contact />} />
 
         <Route path="/paths" element={<Paths />}>
-          <Route path="fs" element={<Fullstack />}>
-            <Route path="frontend" element={<Frontend />} />
-            <Route path="backend" element={<Backend />}/>
-           
-          </Route>
-          <Route path="aws" element={<Aws />} />
+          <Route path="fs" element={<Fullstack />}/>
+          
+          <Route  path="aws" element={<Aws />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

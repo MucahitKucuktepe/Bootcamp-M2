@@ -5,15 +5,15 @@ import NotFound from "./NotFound";
 import spinner from "../img/Spinner-2.gif";
 
 const PersonDetail = () => {
-  const { idx } = useParams();
-  console.log(idx);
+  const { id } = useParams();
+
   const [person, setPerson] = useState([]);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   const getPerson = () => {
-    fetch(`https://reqres.in/api/users/${idx}`)
+    fetch(`https://reqres.in/api/users/${id}`)
       .then((res) => {
         if (!res.ok) {
           setLoading(false);
