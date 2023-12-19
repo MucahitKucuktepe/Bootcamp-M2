@@ -12,6 +12,8 @@ import Frontend from "./pages/Frontend";
 import Backend from "./pages/Backend";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import PrivateRouter from "./pages/PrivateRouter";
 
 function App() {
   return (
@@ -20,14 +22,22 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/people" element={<People />} />
-        <Route path="/people/:id" element={<PersonDetail />} />
+
+        <Route path="/people" element={<PrivateRouter />}>
+          <Route path="/people" element={<People />} />
+          <Route path="/people/:id" element={<PersonDetail />} />
+        </Route>
+
+        <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<Contact />} />
 
         <Route path="/paths" element={<Paths />}>
-          <Route path="fs" element={<Fullstack />}/>
-          
-          <Route  path="aws" element={<Aws />} />
+          <Route path="fs" element={<Fullstack />}>
+            <Route path="frontend" element={<Frontend />} />
+            <Route path="Backend" element={<Backend />} />
+          </Route>
+
+          <Route index path="" element={<Aws />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

@@ -23,7 +23,7 @@ const Paths = () => {
         </button>
         <button
           className="btn btn-warning w-50"
-          onClick={() => navigate("aws")}
+          onClick={() => navigate("")}
         >
           Aws-Devops
         </button>
