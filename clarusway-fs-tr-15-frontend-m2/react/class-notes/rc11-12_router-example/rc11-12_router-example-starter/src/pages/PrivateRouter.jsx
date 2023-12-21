@@ -1,11 +1,11 @@
 import React from 'react'
-import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom'
-import Login from './Login'
+import { Navigate, Outlet,  } from 'react-router-dom'
+
 
 const PrivateRouter = () => {
-    const navigate=useNavigate()
+
     //? Context API, redux, localstorage dan gelir normalde
-const isAutenticated=false
+const isAutenticated=true
 
 //? UseNavigate (Hook) ile Navigate (Component) aslında aynı işi yapar.Yani yönlendirme işlemini gerçekletirir.
 //? Aralarında ki fark kullanım yerleridir. Hook olan bir event ya da useeffect hook'unun içerisi gibi yerlerde kullanılır.(Fonksiyonların kulllanıldığı yerler)
