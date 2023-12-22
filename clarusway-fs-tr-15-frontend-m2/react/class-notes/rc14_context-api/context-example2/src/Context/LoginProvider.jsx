@@ -18,7 +18,7 @@ const LoginProvider = ({children}) => {
   </LoginContext.Provider>;
 };
 
-
+//? Comsumin için bir custom hook yazıyoruz
 export const useLoginContext=()=>{
   return useContext(LoginContext)
 }

@@ -22,7 +22,7 @@ function App() {
 
           <Route path="people" element={<PrivateRouter />}>
             <Route path="" element={<People />} />
-            <Route path="people/:id" element={<PersonDetail />} />
+            <Route path=":id" element={<PersonDetail />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" />} />
