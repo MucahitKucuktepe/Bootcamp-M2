@@ -4,10 +4,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 const Login = () => {
-  const [user, setUser] = useState({ email: "", password: "" });
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(user);
   };
 
   return (
