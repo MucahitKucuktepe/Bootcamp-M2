@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from "react";
 import { auth } from "../auth/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 export const useAuthContext = () => {
@@ -22,7 +22,21 @@ const AuthContextProvider = ({ children }) => {
       console.log(error);
     }
   };
-  const values = { createUser };
+  const signIn = async (email, password) => {
+    try {
+      //? mevcut bir kullanıcının giriş yapabilmesi için kullanılan metod firebase metodu
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      navigate("/")
+      console.log(userCredential.user.auth);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const values = { createUser, signIn };
   return (
     <AuthContext.Provider value={values}> {children} </AuthContext.Provider>
   );
