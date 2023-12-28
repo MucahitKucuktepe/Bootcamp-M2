@@ -1,10 +1,25 @@
 import React, { createContext, useContext } from "react";
+import { auth } from "../auth/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 export const AuthContext = createContext();
-export const useAuthContext=()=>{
-    return useContext(AuthContext)
-}
+export const useAuthContext = () => {
+  return useContext(AuthContext);
+};
 const AuthContextProvider = ({ children }) => {
-  const values = {};
+  const createUser = async (email, password) => {
+    try {
+      //? yeni bir kullanıcı oluşturmak için firebase metodu
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(userCredential.user.auth);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const values = { createUser };
   return (
     <AuthContext.Provider value={values}> {children} </AuthContext.Provider>
   );
