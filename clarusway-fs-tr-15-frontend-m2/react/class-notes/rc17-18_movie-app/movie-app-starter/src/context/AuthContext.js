@@ -1,11 +1,13 @@
 import React, { createContext, useContext } from "react";
 import { auth } from "../auth/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 export const useAuthContext = () => {
   return useContext(AuthContext);
 };
 const AuthContextProvider = ({ children }) => {
+    const navigate = useNavigate();
   const createUser = async (email, password) => {
     try {
       //? yeni bir kullanıcı oluşturmak için firebase metodu
@@ -14,6 +16,7 @@ const AuthContextProvider = ({ children }) => {
         email,
         password
       );
+      navigate("/")
       console.log(userCredential.user.auth);
     } catch (error) {
       console.log(error);

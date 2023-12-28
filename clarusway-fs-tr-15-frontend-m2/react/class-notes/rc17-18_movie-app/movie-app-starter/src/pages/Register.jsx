@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import GoogleIcon from "../assets/icons/GoogleIcon";
 import { useAuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const {createUser}=useAuthContext()
+ 
+  const { createUser } = useAuthContext();
   // inputlarla çalışıyorsak ilk değerleri null veya undefined olmamalı
   const [info, setInfo] = useState({
     firstName: "",
@@ -15,11 +17,11 @@ const Register = () => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
 
-const handleSubmit=(e)=>{
-e.preventDefault()
-const{email,password}=info
-createUser(email,password)
-}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = info;
+    createUser(email, password);
+  };
 
   return (
     <div className="flex justify-center">
