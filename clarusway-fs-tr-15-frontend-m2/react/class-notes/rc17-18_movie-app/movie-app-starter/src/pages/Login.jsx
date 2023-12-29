@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import GoogleIcon from "../assets/icons/GoogleIcon";
 import { useAuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { FaGithub } from "react-icons/fa";
 
 const Login = () => {
-  const { signIn } = useAuthContext();
+  const { signIn, signUpProvider, signUpProviderGithub } = useAuthContext();
   // inputlarla çalışıyorsak ilk değerleri null veya undefined olmamalı
   const [info, setInfo] = useState({
     email: "",
@@ -17,12 +18,12 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, password } = info;
-    signIn(email,password)
+    signIn(email, password);
   };
 
   return (
     <div className="flex justify-center">
-      <div className="overflow-hidden flex-1 h-screen justify-center items-center dark:bg-gray-dark-main">
+      <div className="overflow-hidden flex-1  justify-center items-center">
         <div className={`form-container mt-[5vh] w-[380px] h-[500px] `}>
           <form onSubmit={handleSubmit}>
             <h2 className="text-red-main text-2xl font-[500] text-center tracking-[0.1em] mb-3">
@@ -54,7 +55,12 @@ const Login = () => {
               <span className="py-3 font-[0.75rem] cursor-pointer decoration-none text-gray-500 hover:text-red-500">
                 Forgot Password
               </span>
-              <Link to="/register" className="py-3 font-[0.75rem] cursor-pointer decoration-none text-gray-500 hover:text-red-500">Sign Up</Link>
+              <Link
+                to="/register"
+                className="py-3 font-[0.75rem] cursor-pointer decoration-none text-gray-500 hover:text-red-500"
+              >
+                Sign Up
+              </Link>
             </div>
             <button className="btn-danger" type="submit">
               Login
@@ -62,9 +68,18 @@ const Login = () => {
             <button
               className="flex justify-between text-center items-center btn-danger"
               type="button"
+              onClick={signUpProvider}
             >
               Continue with Google
               <GoogleIcon color="currentColor" />
+            </button>
+            <button
+              className="flex justify-between text-center items-center btn-danger"
+              type="button"
+              onClick={signUpProviderGithub}
+            >
+              Continue with Github
+              <FaGithub color="currentColor" />
             </button>
           </form>
         </div>
