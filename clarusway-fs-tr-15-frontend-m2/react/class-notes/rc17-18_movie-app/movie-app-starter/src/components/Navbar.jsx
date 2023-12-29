@@ -10,12 +10,12 @@ function classNames(...classes) {
 export default function Navbar() {
   // const currentUser = { displayName: "Mücahit Mehmet KÜÇÜKTEPE" };
   // const currentUser = false;
-  const {logOut,currentUser}=useAuthContext()
+  const { logOut, currentUser } = useAuthContext();
   return (
     <>
       <Disclosure
         as="nav"
-        className="bg-neutral-100 dark:bg-gray-900 py-3 dark:text-white fixed w-full z-10 top-0"
+        className="bg-neutral-100 dark:bg-gray-900 py-3 dark:text-white fixed w-full z-10 top-0 "
       >
         <div className="mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex  items-center justify-between">
@@ -92,7 +92,8 @@ export default function Navbar() {
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
-                              )} onClick={logOut}
+                              )}
+                              onClick={logOut}
                             >
                               Log Out
                             </span>

@@ -83,7 +83,7 @@ const Login = () => {
               onClick={signUpProviderGithub}
             >
               Continue with Github
-              <FaGithub color="currentColor" />
+              <FaGithub className="text-[2rem]" color="currentColor" />
             </button>
           </form>
         </div>

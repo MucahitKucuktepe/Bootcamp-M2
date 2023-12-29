@@ -24,10 +24,10 @@ const MovieContextProvider = ({ children }) => {
   //     getMovies();
   //   }, []);
 
-  const getMovies = async () => {
+  const getMovies = async (url) => {
     setLoading(true);
     try {
-      const {data} = await axios(FEATURED_API);
+      const {data} = await axios(url);
       console.log(data.results);
       setMovies(data.results)
     } catch (error) {
@@ -37,11 +37,11 @@ const MovieContextProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    getMovies();
+    getMovies(FEATURED_API);
   }, []);
 
   return (
-    <MovieContext.Provider value={{ loading, movies }}>
+    <MovieContext.Provider value={{ loading, movies, getMovies }}>
       {" "}
       {children}{" "}
     </MovieContext.Provider>
