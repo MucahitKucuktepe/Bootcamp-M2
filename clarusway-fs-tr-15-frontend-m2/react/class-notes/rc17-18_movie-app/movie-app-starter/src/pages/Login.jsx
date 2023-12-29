@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 
 const Login = () => {
-  const { signIn, signUpProvider, signUpProviderGithub } = useAuthContext();
+  const { signIn, signUpProvider, signUpProviderGithub, forgotPassword } =
+    useAuthContext();
   // inputlarla çalışıyorsak ilk değerleri null veya undefined olmamalı
   const [info, setInfo] = useState({
     email: "",
@@ -52,7 +53,10 @@ const Login = () => {
               <label htmlFor="floating_password">Password</label>
             </div>
             <div className="flex justify-between">
-              <span className="py-3 font-[0.75rem] cursor-pointer decoration-none text-gray-500 hover:text-red-500">
+              <span
+                className="py-3 font-[0.75rem] cursor-pointer decoration-none text-gray-500 hover:text-red-500"
+                onClick={() => forgotPassword(info.email)}
+              >
                 Forgot Password
               </span>
               <Link

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import GoogleIcon from "../assets/icons/GoogleIcon";
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { FaGithub } from "react-icons/fa";
 
 const Register = () => {
- 
-  const { createUser } = useAuthContext();
+  const { createUser, signUpProvider, signUpProviderGithub } = useAuthContext();
   // inputlarla çalışıyorsak ilk değerleri null veya undefined olmamalı
   const [info, setInfo] = useState({
     firstName: "",
@@ -20,7 +20,7 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, password, firstName, lastName } = info;
-    const displayName=`${firstName} ${lastName}`
+    const displayName = `${firstName} ${lastName}`;
     createUser(email, password, displayName);
   };
 
@@ -82,9 +82,18 @@ const Register = () => {
             <button
               className="flex justify-between text-center items-center btn-danger"
               type="button"
+              onClick={signUpProvider}
             >
               Continue with Google
               <GoogleIcon color="currentColor" />
+            </button>
+            <button
+              className="flex justify-between text-center items-center btn-danger"
+              type="button"
+              onClick={signUpProviderGithub}
+            >
+              Continue with Github
+              <FaGithub color="currentColor" />
             </button>
           </form>
         </div>
