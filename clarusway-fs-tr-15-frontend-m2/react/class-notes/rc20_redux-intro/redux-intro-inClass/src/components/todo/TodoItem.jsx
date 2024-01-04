@@ -3,9 +3,13 @@ import okLogo from "../../assets/ok.png"
 import deleteLogo from "../../assets/delete.png"
 
 const TodoItem = ({ completed, text, id }) => {
-  const handleToggle = () => {}
+  const handleToggle = (e) => {
+    console.log(e.target.id)
+  }
 
-  const handleDelete = () => {}
+  const handleDelete = (e) => {
+    console.log(e.target)
+  }
 
   const styled = {
     textDecoration: completed ? "line-through" : "none",
@@ -14,7 +18,7 @@ const TodoItem = ({ completed, text, id }) => {
   }
 
   return (
-    <div style={styled} className="todo-list">
+    <div style={styled} className="todo-list" id={id}>
       <h2 className="todoText">{text}</h2>
       <div>
         <span>
@@ -22,7 +26,8 @@ const TodoItem = ({ completed, text, id }) => {
             src={okLogo}
             className="ok-logo"
             alt="ok logo"
-            onClick={handleToggle}
+            onClick={handleToggle }
+       
           />
         </span>
         <span>
@@ -31,6 +36,7 @@ const TodoItem = ({ completed, text, id }) => {
             className="delete-logo"
             alt="delete logo"
             onClick={handleDelete}
+       
           />
         </span>
       </div>
