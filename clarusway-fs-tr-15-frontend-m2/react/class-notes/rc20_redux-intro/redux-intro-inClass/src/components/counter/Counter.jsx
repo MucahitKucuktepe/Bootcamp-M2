@@ -3,7 +3,7 @@ import "./Counter.css";
 import { CLR, DEC, INC, clear, decrement, increment } from "../../store/CounterReducer";
 
 const Counter = () => {
-  const count = useSelector((state) => state.count);
+  const count = useSelector((state) => state.counter.count);
   const dispatch = useDispatch();
   return (
     <div className="app">
