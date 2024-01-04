@@ -1,16 +1,32 @@
 const initialState = {
-  count: 0,
+  count: 10,
 };
 
-const counterReducer = (state = initialState, action) => {
+//? Type ların constant olarak belirlenmesi
+export const INC="INC"
+export const DEC="DEC"
+export const CLR="CLR"
+
+//?Action Creater fonksiyonlarının tanımlanması
+export const increment=()=>{
+  return {type:INC}
+}
+export const decrement=()=>{
+  return {type:DEC}
+}
+export const clear=()=>{
+  return {type:CLR}
+}
+
+export const counterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "INC":
+    case INC:
         return {count: state.count +1}
       break;
-    case "DEC":
-        return {count: state.count +1}
+    case DEC:
+        return {count: state.count -1}
       break;
-    case "CLR":
+    case CLR:
         return {count:0}
       break;
 

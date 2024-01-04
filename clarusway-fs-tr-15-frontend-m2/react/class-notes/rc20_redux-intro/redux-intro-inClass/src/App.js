@@ -7,9 +7,11 @@ import { store } from "./store/store";
 function App() {
   return (
     <div className="app">
-    <Provider store={store} ></Provider>
-      <Counter />
+    <Provider store={store} >
+    <Counter />
       {/* <Todo /> */}
+    </Provider>
+    
     </div>
   );
 }
