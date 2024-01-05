@@ -1,21 +1,26 @@
-import React from "react"
-import okLogo from "../../assets/ok.png"
-import deleteLogo from "../../assets/delete.png"
+import React from "react";
+import okLogo from "../../assets/ok.png";
+import deleteLogo from "../../assets/delete.png";
+import { useDispatch } from "react-redux";
+import { deleteTodo, toggleTodo } from "../../store/TodoReducer";
 
 const TodoItem = ({ completed, text, id }) => {
+  const dispatch = useDispatch();
   const handleToggle = (e) => {
-    console.log(e.target.id)
-  }
+    console.log(id);
+    dispatch(toggleTodo(id));
+  };
 
   const handleDelete = (e) => {
-    console.log(e.target)
-  }
+    console.log(id);
+    dispatch(deleteTodo(id))
+  };
 
   const styled = {
     textDecoration: completed ? "line-through" : "none",
     backgroundColor: completed ? "#A9A9A9" : "orange",
     borderRadius: "5px",
-  }
+  };
 
   return (
     <div style={styled} className="todo-list" id={id}>
@@ -26,8 +31,7 @@ const TodoItem = ({ completed, text, id }) => {
             src={okLogo}
             className="ok-logo"
             alt="ok logo"
-            onClick={handleToggle }
-       
+            onClick={handleToggle}
           />
         </span>
         <span>
@@ -36,12 +40,11 @@ const TodoItem = ({ completed, text, id }) => {
             className="delete-logo"
             alt="delete logo"
             onClick={handleDelete}
-       
           />
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TodoItem
+export default TodoItem;

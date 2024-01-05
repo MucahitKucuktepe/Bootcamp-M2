@@ -12,8 +12,8 @@ export const TGL = "TGL";
 //?Action creator function
 export const addTodo = (payload) => ({ type: ADD, payload });
 export const clearTodo = () => ({ type: CLR });
-export const deleteTodo=(payload)=>({type:DEL, payload})
-export const toggleTodo=(payload)=>({type:TGL,payload})
+export const deleteTodo = (payload) => ({ type: DEL, payload });
+export const toggleTodo = (payload) => ({ type: TGL, payload });
 
 //?Reducer
 export const todoReducer = (state = initialState, { type, payload }) => {
@@ -30,20 +30,16 @@ export const todoReducer = (state = initialState, { type, payload }) => {
 
     case DEL:
       return {
-        todoList: [
-          ...state.todoList,
-          { id: new Date().getTime(), text: payload, completed: false },
-        ],
+        todoList: state.todoList.filter((todo)=>todo.id!==payload)
       };
     case TGL:
       return {
-        todoList: [
-          ...state.todoList,
-          { id: new Date().getTime(), text: payload, completed: false },
-        ],
+        todoList: state.todoList.map((todo)=>todo.id===payload ? {...todo, completed:true}:todo)
       };
 
     default:
       return state;
+
+
   }
 };
