@@ -9,8 +9,12 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { Form, Formik } from "formik";
+import { object, string } from "yup";
 const Login = () => {
-  const loginSchema = {};
+  const loginSchema = object({
+    email: string().email("Lütfen geçerli bir email adresi giriniz").required("Email girişi Zorunludur"),
+    password: string().required(),
+  });
   return (
     <Container maxWidth="lg">
       <Grid
@@ -59,7 +63,7 @@ const Login = () => {
               //? toast yapılabilir
             }}
           >
-            {({ handleChange, values, touched, errors }) => (
+            {({ handleChange, values, touched, errors, handleBlur }) => (
               <Form>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <TextField
@@ -70,6 +74,7 @@ const Login = () => {
                     variant="outlined"
                     value={values.email}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     error={touched.email && Boolean(errors.email)}
                     helperText={errors.email}
                   />
@@ -81,6 +86,9 @@ const Login = () => {
                     variant="outlined"
                     value={values.password}
                     onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={errors.password}
                   />
                   <Button variant="contained" type="submit">
                     Submit
