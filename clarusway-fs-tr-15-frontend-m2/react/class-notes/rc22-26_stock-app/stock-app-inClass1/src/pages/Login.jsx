@@ -10,10 +10,21 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { Form, Formik } from "formik";
 import { object, string } from "yup";
+import useAuthCalls from "../service/useAuthCalls";
 const Login = () => {
+  const { login } = useAuthCalls();
   const loginSchema = object({
-    email: string().email("Lütfen geçerli bir email adresi giriniz").required("Email girişi Zorunludur"),
-    password: string().required(),
+    email: string()
+      .email("Lütfen geçerli bir email adresi giriniz")
+      .required("Email girişi Zorunludur"),
+    password: string()
+      .required("Şifre Zorunludur")
+      .min(8, "Şifre en az 8 karakter içermelidir")
+      .max(16, "Şifre en fazla 16 karakter içermelidir")
+      .matches(/\d+/, "Şifre en bir rakam içermelidir")
+      .matches(/[a-z]/, "Şifre en az bir küçük harf içermelidir")
+      .matches(/[A-Z]/, "Şifre en az bir küçük harf içermelidir")
+      .matches(/[@$!%*?&]/, "Şifre en az bir özel karakter içermelidr"),
   });
   return (
     <Container maxWidth="lg">
@@ -56,6 +67,7 @@ const Login = () => {
             validationSchema={loginSchema}
             onSubmit={(values, actions) => {
               //?TODO Login (post) istegi
+              login(values);
               actions.resetForm();
               actions.setSubmitting(false);
               //? veriler global state e aktarılabilir
