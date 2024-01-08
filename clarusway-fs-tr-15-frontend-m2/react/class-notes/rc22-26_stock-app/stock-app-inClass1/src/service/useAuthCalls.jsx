@@ -1,38 +1,47 @@
-import React from "react";
 import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchFail, fetchStart, loginSuccess,registerSucces } from "../features/authSlice";
+import {
+  fetchFail,
+  fetchStart,
+  loginSuccess,
+  registerSucces,
+} from "../features/authSlice";
 const useAuthCalls = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const login = async (userInfo) => {
-    dispatch(fetchStart())
+    dispatch(fetchStart());
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/auth/login/`,
         userInfo
       );
-      dispatch(loginSuccess(data))
+      dispatch(loginSuccess(data));
       toastSuccessNotify("Login işlemi başarali");
       navigate("/stock");
       console.log(data);
     } catch (error) {
-      dispatch(fetchFail())
+      dispatch(fetchFail());
       toastErrorNotify("Login işlemi başarisiz!");
       console.log(error);
     }
   };
-  const register = async (values) => {
-    dispatch(fetchStart())
+  const register = async (userregister) => {
+    console.log(userregister);
+    dispatch(fetchStart());
     try {
-      const {data}= await axios.post(`
-      ${process.env.REACT_APP_BASE_URL}/users/`,values)
-      dispatch(registerSucces())
+      const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/`,
+        userregister
+      );
+      dispatch(registerSucces(data))
+      navigate("/stock")
+      console.log(data);
+  
     } catch (error) {
-     dispatch(fetchFail())
-      console.log(error)
+      dispatch(fetchFail());
+      console.log(error);
     }
   };
 

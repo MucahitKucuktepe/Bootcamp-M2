@@ -6,23 +6,22 @@ import image from "../assets/result.svg";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { object, string } from "yup";
 import { Form, Formik } from "formik";
-import { useDispatch } from "react-redux";
 import useAuthCalls from "../service/useAuthCalls";
+
 
 const Register = () => {
   const { register } = useAuthCalls();
-  const dispatch = useDispatch();
   const registerSchema = object({
     username: string()
       .required("Lütfen Kullanici adinizi giriniz!")
       .min(4, "Kullanici adi en az 4 karakter içermelidir")
       .max(8, "Kullanici adi en fazla 8 karakter içermelidir"),
-    first_name: string().required("Lütfen İsminizi Giriniz"),
-    last_name: string().required("Lütfen Soyisminizi Giriniz"),
+    firstName: string().required("Lütfen İsminizi Giriniz"),
+    lastName: string().required("Lütfen Soyisminizi Giriniz"),
     email: string()
       .email("Lütfen geçerli bir email giriniz")
       .required("Email girişi zorunludur"),
@@ -79,13 +78,14 @@ const Register = () => {
           <Formik
             initialValues={{
               username: "",
-              first_name: "",
-              last_name: "",
+              firstName: "",
+              lastName: "",
               email: "",
               password: "",
             }}
             validationSchema={registerSchema}
             onSubmit={(values, actions) => {
+              console.log(values)
               register(values);
               actions.resetForm();
               actions.setSubmitting(false);
@@ -108,27 +108,27 @@ const Register = () => {
                   />
                   <TextField
                     label="First Name"
-                    name="first_name"
+                    name="firstName"
                     id="firstName"
                     type="text"
                     variant="outlined"
-                    value={values.first_name}
+                    value={values.firstName}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    error={touched.first_name && errors.first_name}
-                    helperText={errors.first_name}
+                    error={touched.firstName && errors.firstName}
+                    helperText={errors.firstName}
                   />
                   <TextField
                     label="Last Name"
-                    name="last_name"
+                    name="lastName"
                     id="last_name"
                     type="text"
                     variant="outlined"
-                    value={values.last_name}
+                    value={values.lastName}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    error={touched.last_name && errors.last_name}
-                    helperText={errors.last_name}
+                    error={touched.lastName && errors.lastName}
+                    helperText={errors.lastName}
                   />
                   <TextField
                     label="Email"
