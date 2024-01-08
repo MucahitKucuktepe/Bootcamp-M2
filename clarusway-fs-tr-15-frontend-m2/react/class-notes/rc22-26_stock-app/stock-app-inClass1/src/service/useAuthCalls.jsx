@@ -3,7 +3,7 @@ import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchFail, fetchStart, loginSuccess } from "../features/authSlice";
+import { fetchFail, fetchStart, loginSuccess,registerSucces } from "../features/authSlice";
 const useAuthCalls = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,7 +24,17 @@ const useAuthCalls = () => {
       console.log(error);
     }
   };
-  const register = async () => {};
+  const register = async (values) => {
+    dispatch(fetchStart())
+    try {
+      const {data}= await axios.post(`
+      ${process.env.REACT_APP_BASE_URL}/users/`,values)
+      dispatch(registerSucces())
+    } catch (error) {
+     dispatch(fetchFail())
+      console.log(error)
+    }
+  };
 
   const logOut = async () => {};
 
