@@ -4,8 +4,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
-import { TextField } from "@mui/material";
-
+import { TextField, Tooltip } from "@mui/material";
+import { object, string } from "yup";
+import { Form, Formik } from "formik";
+import useStock from "../service/useStock";
+import { getFirmsSuccess } from "../features/stockSlice";
+import { useDispatch } from "react-redux";
 const style = {
   position: "absolute",
   top: "50%",
@@ -19,7 +23,16 @@ const style = {
 };
 
 export default function FirmModal({ open, setOpen }) {
+  const dispatch = useDispatch();
   const handleClose = () => setOpen(false);
+  const { createFirm, getFirms } = useStock();
+
+  const createFirmSchema = object({
+    name: string().required("Lütfen Firma Adini Griniz!"),
+    phone: string().required("Telefon girişi zorunludur"),
+    address: string().required("Adres girişi zorunludur."),
+    image: string().required("Photo Url giriniz"),
+  });
 
   return (
     <div>
@@ -29,46 +42,79 @@ export default function FirmModal({ open, setOpen }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <TextField
-            label="User Name"
-            name="username"
-            id="userName"
-            type="text"
-            variant="outlined"
-          />
-          <TextField
-            label="First Name"
-            name="firstName"
-            id="firstName"
-            type="text"
-            variant="outlined"
-          />
-          <TextField
-            label="Last Name"
-            name="lastName"
-            id="last_name"
-            type="text"
-            variant="outlined"
-          />
-          <TextField
-            label="Email"
-            name="email"
-            id="email"
-            type="email"
-            variant="outlined"
-          />
-          <TextField
-            label="password"
-            name="password"
-            id="password"
-            type="password"
-            variant="outlined"
-          />
-          <Button type="submit" variant="contained" size="large">
-            Submit
-          </Button>
-        </Box>
+        <Formik
+          initialValues={{
+            name: "",
+            phone: "",
+            address: "",
+            image: "",
+          }}
+          validationSchema={createFirmSchema}
+          onSubmit={(values, actions) => {
+            console.log(values);
+            createFirm(values);
+            actions.resetForm();
+            actions.setSubmitting(false);
+          }}
+        >
+          {({ handleChange, values, touched, errors, handleBlur }) => (
+            <Form>
+              <Box sx={style}>
+                <TextField
+                  label="name"
+                  name="name"
+                  id="name"
+                  type="text"
+                  variant="outlined"
+                  value={values.name}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={touched.name && errors.name}
+                  helperText={errors.name}
+                />
+                <TextField
+                  label="phone"
+                  name="phone"
+                  id="phone"
+                  type="text"
+                  variant="outlined"
+                  value={values.phone}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={touched.phone && errors.phone}
+                  helperText={errors.phone}
+                />
+                <TextField
+                  label="address"
+                  name="address"
+                  id="address"
+                  type="text"
+                  variant="outlined"
+                  value={values.address}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={touched.address && errors.address}
+                  helperText={errors.address}
+                />
+                <TextField
+                  label="image"
+                  name="image"
+                  id="image"
+                  type="url"
+                  variant="outlined"
+                  value={values.image}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={touched.image && errors.image}
+                  helperText={errors.image}
+                />
+                <Button type="submit" variant="contained" size="large">
+                  Submit
+                </Button>
+              </Box>
+            </Form>
+          )}
+        </Formik>
       </Modal>
     </div>
   );
