@@ -10,7 +10,7 @@ import { Form, Formik } from "formik";
 import useStock from "../service/useStock";
 import { getFirmsSuccess } from "../features/stockSlice";
 import { useDispatch } from "react-redux";
-
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 const style = {
   position: "absolute",
   top: "50%",
@@ -21,6 +21,9 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  display: "flex",
+  flexDirection: "column",
+  gap: 2,
 };
 
 export default function FirmModal({ open, setOpen }) {
@@ -61,6 +64,26 @@ export default function FirmModal({ open, setOpen }) {
           {({ handleChange, values, touched, errors, handleBlur }) => (
             <Form>
               <Box sx={style}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginBottom: "5px",
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      objectFit: "contain",
+                      maxWidth: "10px",
+                      textAlign: "right",
+                      color:"red"
+                    }}
+                    onClick={handleClose}
+                  >
+                    <HighlightOffIcon />
+                  </Button>
+                </div>
                 <TextField
                   label="name"
                   name="name"
@@ -73,6 +96,7 @@ export default function FirmModal({ open, setOpen }) {
                   error={touched.name && Boolean(errors.name)}
                   helperText={errors.name}
                 />
+
                 <TextField
                   label="phone"
                   name="phone"
@@ -97,6 +121,7 @@ export default function FirmModal({ open, setOpen }) {
                   error={touched.address && Boolean(errors.address)}
                   helperText={errors.address}
                 />
+
                 <TextField
                   label="image"
                   name="image"
@@ -109,7 +134,7 @@ export default function FirmModal({ open, setOpen }) {
                   error={touched.image && Boolean(errors.image)}
                   helperText={errors.image}
                 />
-                <Button type="submit" variant="contained" size="large">
+                <Button type="submit" variant="contained" size="large" style={{background:"green"}}>
                   Submit
                 </Button>
               </Box>
