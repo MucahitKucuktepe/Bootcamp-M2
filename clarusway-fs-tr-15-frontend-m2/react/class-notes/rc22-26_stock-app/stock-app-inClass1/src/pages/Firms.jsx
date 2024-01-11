@@ -25,7 +25,7 @@ const Firms = () => {
   const handleOpen = () => setOpen(true);
   return (
     <div>
-      <Typography variant="h4" style={{ color: "red" }} py={"10px"}>
+      <Typography variant="h4" style={{ color: "red" }} py={"10px"} mb={3}>
         Firms
       </Typography>
       <div>

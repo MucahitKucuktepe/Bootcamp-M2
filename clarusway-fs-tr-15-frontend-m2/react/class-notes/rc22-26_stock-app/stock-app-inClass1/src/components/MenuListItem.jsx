@@ -49,29 +49,23 @@ const MenuListItem = () => {
   return (
     <List>
       {icons.map((item, index) => (
-        <ListItem
-          key={index}
-          disablePadding
-          onClick={() => navigate(item.url)}
-          className="hoverEffect"
-        >
-          <ListItemButton className="hoverEffect" sx={{
-            color: "white", 
-            "&:hover": {
-              backgroundColor: "rgba(255, 0, 0, 0.2)", 
-              color: "red", 
-              "& .MuiSvgIcon-root": {
-                color: "red", 
+        <ListItem key={index} disablePadding onClick={() => navigate(item.url)}>
+          <ListItemButton
+            sx={{
+              color: "white",
+              "&:hover": {
+                backgroundColor: "rgba(80, 200, 80, 0.2)",
+                color: "red",
+                "& .MuiSvgIcon-root": {
+                  color: "red",
+                },
               },
-            },
-          }}>
-            <ListItemIcon style={{ color: "white" }}  className="hoverEffect">
-              {item.icon}
-            </ListItemIcon>
+            }}
+          >
+            <ListItemIcon style={{ color: "white" }}>{item.icon}</ListItemIcon>
             <ListItemText
-              style={{ color: "white" }}
+              // sx={{ color: "white", "&:hover": { color: "red" } }}
               primary={item.title}
-              className="hoverEffect"
             />
           </ListItemButton>
         </ListItem>

@@ -14,13 +14,14 @@ import { useSelector } from "react-redux";
 import useAuthCalls from "../service/useAuthCalls";
 import MenuListItem from "../components/MenuListItem";
 import { Outlet } from "react-router-dom";
+import { logoutSuccess } from "../features/authSlice";
 const drawerWidth = 200;
 
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { user } = useSelector((state) => state.auth);
-  const { logout } = useAuthCalls();
+  const { logOut } = useAuthCalls();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -63,7 +64,7 @@ function Dashboard(props) {
             Stock App
           </Typography>
           {user && (
-            <Button variant="contained" onClick={logout}>
+            <Button variant="contained" onClick={logOut} >
               LogOut
             </Button>
           )}

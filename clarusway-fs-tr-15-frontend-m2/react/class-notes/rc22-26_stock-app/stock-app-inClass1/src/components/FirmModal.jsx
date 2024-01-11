@@ -10,6 +10,7 @@ import { Form, Formik } from "formik";
 import useStock from "../service/useStock";
 import { getFirmsSuccess } from "../features/stockSlice";
 import { useDispatch } from "react-redux";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -35,13 +36,13 @@ export default function FirmModal({ open, setOpen }) {
   });
 
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <div>
         <Formik
           initialValues={{
             name: "",
@@ -69,7 +70,7 @@ export default function FirmModal({ open, setOpen }) {
                   value={values.name}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  error={touched.name && errors.name}
+                  error={touched.name && Boolean(errors.name)}
                   helperText={errors.name}
                 />
                 <TextField
@@ -81,7 +82,7 @@ export default function FirmModal({ open, setOpen }) {
                   value={values.phone}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  error={touched.phone && errors.phone}
+                  error={touched.phone && Boolean(errors.phone)}
                   helperText={errors.phone}
                 />
                 <TextField
@@ -93,7 +94,7 @@ export default function FirmModal({ open, setOpen }) {
                   value={values.address}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  error={touched.address && errors.address}
+                  error={touched.address && Boolean(errors.address)}
                   helperText={errors.address}
                 />
                 <TextField
@@ -105,7 +106,7 @@ export default function FirmModal({ open, setOpen }) {
                   value={values.image}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  error={touched.image && errors.image}
+                  error={touched.image && Boolean(errors.image)}
                   helperText={errors.image}
                 />
                 <Button type="submit" variant="contained" size="large">
@@ -115,7 +116,7 @@ export default function FirmModal({ open, setOpen }) {
             </Form>
           )}
         </Formik>
-      </Modal>
-    </div>
+      </div>
+    </Modal>
   );
 }
