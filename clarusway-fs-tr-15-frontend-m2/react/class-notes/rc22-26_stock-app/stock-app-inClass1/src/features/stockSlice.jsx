@@ -19,11 +19,15 @@ const stockSlice = createSlice({
       state.loading = true;
     },
 
-    getFirmsSuccess: (state, { payload }) => {
-      console.log(payload);
+    getStockSuccess: (state, { payload }) => {
       state.loading = false;
-      state.firms = payload;
+      state[payload.url] = payload.apiData;
     },
+    //! Destruction yaparak ham veriyi elde ettim
+    // getStockSuccess: (state, { payload :{url,apiData} }) => {
+    //   state.loading = false;
+    //   state[url] = apiData;
+    // },
     fetchFail: (state) => {
       state.loading = false;
       state.error = true;
@@ -31,6 +35,6 @@ const stockSlice = createSlice({
   },
 });
 
-export const {fetchStart,getFirmsSuccess,fetchFail} = stockSlice.actions;
+export const {fetchStart,fetchFail,getStockSuccess} = stockSlice.actions;
 
 export default stockSlice.reducer;

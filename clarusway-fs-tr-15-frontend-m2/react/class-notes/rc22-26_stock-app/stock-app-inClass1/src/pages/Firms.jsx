@@ -17,9 +17,10 @@ const Firms = () => {
   const [open, setOpen] = useState(false);
   const { firms } = useSelector((state) => state.stock);
   console.log(firms);
-  const { getFirms } = useStock();
+  const { getStocks } = useStock();
   useEffect(() => {
-    getFirms();
+    getStocks("firms");
+    getStocks("sales")
   }, []);
 
   const handleOpen = () => setOpen(true);
