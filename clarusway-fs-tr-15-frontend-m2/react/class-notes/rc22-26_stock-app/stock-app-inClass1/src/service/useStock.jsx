@@ -61,7 +61,7 @@ const useStock = () => {
       console.log(error);
     }
   };
-  const deleteFirm = async (id) => {
+  const deleteStock = async (url="firms",id) => {
     console.log(id)
     dispatch(fetchStart());
     try {
@@ -69,7 +69,7 @@ const useStock = () => {
       //   `${process.env.REACT_APP_BASE_URL}/auth/login/`,
       //   userInfo
       // );
-      await axiosWithToken.delete(`/firms/${id}/`);
+      await axiosWithToken.delete(`/${url}/${id}/`);
 
       // getFirms();
       getStocks("firms")
@@ -85,7 +85,7 @@ const useStock = () => {
     // getFirms,
     getStocks,
     createFirm,
-    deleteFirm
+    deleteStock
   };
 };
 

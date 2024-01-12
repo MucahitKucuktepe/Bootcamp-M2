@@ -8,11 +8,11 @@ import CardMedia from "@mui/material/CardMedia";
 import useStock from "../service/useStock";
 import { useDispatch, useSelector } from "react-redux";
 import FirmModal from "../components/FirmModal";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
+import FirmCard from "../components/FirmCard";
+
 
 const Firms = () => {
-  const { deleteFirm } = useStock()
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const { firms } = useSelector((state) => state.stock);
@@ -59,46 +59,7 @@ const Firms = () => {
       >
         {firms.map((firm) => (
 
-          <Card
-            key={firm._id}
-            sx={{
-              maxWidth: 345,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "300px",
-              height: "400px",
-              p: 2,
-            }}
-          >
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {firm.name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {firm.address}
-              </Typography>
-            </CardContent>
-            <CardMedia
-              component="img"
-              sx={{ height: 140, objectFit: "contain" }}
-              image={firm.image}
-              title="green iguana"
-            />
-
-            <Typography variant="body2" color="text.secondary">
-              {firm.phone}
-            </Typography>
-
-            <CardActions>
-              <DeleteOutlineIcon
-           
-                onClick={() => deleteFirm(firm._id)}
-              />
-              <EditIcon />
-            </CardActions>
-          </Card>
+        <FirmCard key={firm._id} {...firm} />
         ))}
       </div>
     </div>
