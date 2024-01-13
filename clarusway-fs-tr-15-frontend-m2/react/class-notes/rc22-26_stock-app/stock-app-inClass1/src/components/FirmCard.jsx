@@ -11,9 +11,9 @@ import useStock from "../service/useStock";
 import { btnStyle } from "../styles/globalStyles";
 
 
-
-const FirmCard = ({ name, address, image, phone, _id }) => {
+const FirmCard = ({ firm, setInfo, handleOpen }) => {
   const { deleteStock } = useStock();
+  const { name, address, image, phone, _id } = firm;
   return (
     <Card
       key={_id}
@@ -49,8 +49,17 @@ const FirmCard = ({ name, address, image, phone, _id }) => {
       </Typography>
 
       <CardActions sx={{ display: "flex", gap: 4 }}>
-        <DeleteOutlineIcon sx={btnStyle} onClick={() => deleteStock("firms",_id)} />
-        <EditIcon sx={btnStyle} />
+        <DeleteOutlineIcon
+          sx={btnStyle}
+          onClick={() => deleteStock("firms", _id)}
+        />
+        <EditIcon
+          sx={btnStyle}
+          onClick={() => {
+            handleOpen()
+            setInfo(firm)
+          }}
+        />
       </CardActions>
     </Card>
   );

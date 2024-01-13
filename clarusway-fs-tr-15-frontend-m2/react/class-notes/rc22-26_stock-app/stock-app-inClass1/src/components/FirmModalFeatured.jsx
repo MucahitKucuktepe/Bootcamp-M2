@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
 import useStock from "../service/useStock";
@@ -19,7 +18,8 @@ const style = {
 };
 
 export default function BasicModal({ setOpen, open, info, setInfo }) {
-  const { createFirm } = useStock();
+  const { name, address, phone, image } = info;
+  const { postStock, putStock } = useStock();
   const handleClose = () => setOpen(false);
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -27,8 +27,20 @@ export default function BasicModal({ setOpen, open, info, setInfo }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createFirm(info);
-    handleClose()
+
+    if (info._id) {
+      putStock("firms", info);
+    } else {
+      postStock("firms", info);
+    }
+
+    setInfo({
+      name: "",
+      address: "",
+      phone: "",
+      image: "",
+    });
+    handleClose();
   };
 
   return (
@@ -51,7 +63,7 @@ export default function BasicModal({ setOpen, open, info, setInfo }) {
               id="name"
               type="text"
               variant="outlined"
-              value={info.name}
+              value={name}
               onChange={handleChange}
             ></TextField>
             <TextField
@@ -60,7 +72,7 @@ export default function BasicModal({ setOpen, open, info, setInfo }) {
               id="phone"
               type="tel"
               variant="outlined"
-              value={info.phone}
+              value={phone}
               onChange={handleChange}
             ></TextField>
             <TextField
@@ -68,7 +80,7 @@ export default function BasicModal({ setOpen, open, info, setInfo }) {
               name="address"
               id="address"
               type="text"
-              value={info.address}
+              value={address}
               onChange={handleChange}
             ></TextField>
             <TextField
@@ -76,18 +88,28 @@ export default function BasicModal({ setOpen, open, info, setInfo }) {
               name="image"
               id="image"
               type="url"
-              value={info.image}
+              value={image}
               onChange={handleChange}
             ></TextField>
-
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              style={{ background: "green" }}
-            >
-              Submit
-            </Button>
+            {info._id ? (
+              <Button
+                type="submit"
+                variant="contained"
+                size="large"
+                style={{ background: "green" }}
+              >
+                Edit Firm
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                variant="contained"
+                size="large"
+                style={{ background: "green" }}
+              >
+                Submit
+              </Button>
+            )}
           </Box>
         </Box>
       </Modal>

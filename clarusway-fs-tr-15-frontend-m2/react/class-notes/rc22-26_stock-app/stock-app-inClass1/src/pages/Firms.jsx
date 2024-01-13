@@ -52,7 +52,12 @@ const Firms = () => {
           NEW FİRM
         </Button>
         {/* <FirmModal open={open} setOpen={setOpen} /> */}
-        <FirmModalFeatured open={open} setOpen={setOpen} info={info} setInfo={setInfo} />
+        <FirmModalFeatured
+          open={open}
+          setOpen={setOpen}
+          info={info}
+          setInfo={setInfo}
+        />
       </div>
       <div
         style={{
@@ -64,7 +69,15 @@ const Firms = () => {
         }}
       >
         {firms.map((firm) => (
-          <FirmCard key={firm._id} {...firm} />
+          <FirmCard
+            key={firm._id}
+            firm={firm}
+            open={open}
+            setOpen={setOpen}
+            info={info}
+            setInfo={setInfo}
+            handleOpen={handleOpen}
+          />
         ))}
       </div>
     </div>

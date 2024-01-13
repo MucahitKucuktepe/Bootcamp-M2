@@ -2,13 +2,13 @@ import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 import { useDispatch } from "react-redux";
 import useAxios from "./Useaxios";
-import { fetchFail, fetchStart,getStockSuccess } from "../features/stockSlice";
+import { fetchFail, fetchStart, getStockSuccess } from "../features/stockSlice";
 const useStock = () => {
   const dispatch = useDispatch();
   const { axiosWithToken } = useAxios();
 
   //! Aşağıdaki fonksiyonu parametsik hale getirerek her yerde yeniden fonksiyon yazmaktan kurtuldum
-  // const getFirms = async () => { 
+  // const getFirms = async () => {
   //   dispatch(fetchStart());
   //   try {
   //     // const { data } = await axios.post(
@@ -33,8 +33,9 @@ const useStock = () => {
       //   userInfo
       // );
       const { data } = await axiosWithToken(`${url}`);
-      const apiData=data.data
-      dispatch(getStockSuccess({apiData,url}));
+      const apiData = data.data;
+      toastSuccessNotify("Firma Listeleme işlemi başarili");
+      dispatch(getStockSuccess({ apiData, url }));
 
       console.log(data.data);
     } catch (error) {
@@ -43,26 +44,46 @@ const useStock = () => {
       console.log(error);
     }
   };
-  const createFirm = async (info) => {
+  const postStock = async (url = "firms", info) => {
     dispatch(fetchStart());
     try {
       // const { data } = await axios.post(
       //   `${process.env.REACT_APP_BASE_URL}/auth/login/`,
       //   userInfo
       // );
-      const { data } = await axiosWithToken.post("/firms/", info);
+      const { data } = await axiosWithToken.post(`/${url}/`, info);
 
       // getFirms();
-      getStocks("firms")
+      toastSuccessNotify("Yeni Firma Eklendi");
+      getStocks("firms");
       console.log(data.data);
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Firma Listeleme İşlemi başarisiz");
+      toastErrorNotify("Yeni Firma Ekleme İşlemi başarisiz");
       console.log(error);
     }
   };
-  const deleteStock = async (url="firms",id) => {
-    console.log(id)
+  const putStock = async (url = "firms", info) => {
+    dispatch(fetchStart());
+    try {
+      // const { data } = await axios.post(
+      //   `${process.env.REACT_APP_BASE_URL}/auth/login/`,
+      //   userInfo
+      // );
+      const { data } = await axiosWithToken.put(`/${url}/${info._id}`, info);
+      toastSuccessNotify("Firma Güncellendi");
+      // getFirms();
+      getStocks("firms");
+      console.log(data.data);
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify("Firma Güncelleme İşlemi başarisiz");
+      console.log(error);
+    }
+  };
+
+  const deleteStock = async (url = "firms", id) => {
+    console.log(id);
     dispatch(fetchStart());
     try {
       // const { data } = await axios.post(
@@ -70,10 +91,9 @@ const useStock = () => {
       //   userInfo
       // );
       await axiosWithToken.delete(`/${url}/${id}/`);
-
+      toastSuccessNotify("Silme işlemi başarili");
       // getFirms();
-      getStocks("firms")
-  
+      getStocks("firms");
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify("Firma Listeleme İşlemi başarisiz");
@@ -84,8 +104,9 @@ const useStock = () => {
   return {
     // getFirms,
     getStocks,
-    createFirm,
-    deleteStock
+    postStock,
+    deleteStock,
+    putStock
   };
 };
 
