@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import useStock from "../service/useStock";
 import { useDispatch, useSelector } from "react-redux";
 import FirmModal from "../components/FirmModal";
 import FirmCard from "../components/FirmCard";
-
+import FirmModalFeatured from "../components/FirmModalFeatured";
 
 const Firms = () => {
+  //? Modal states start
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const [info, setInfo] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    image: "",
+  });
+
+  //? Modal states finish
 
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
   const { firms } = useSelector((state) => state.stock);
   console.log(firms);
   const { getStocks } = useStock();
   useEffect(() => {
     getStocks("firms");
-    getStocks("sales")
+    getStocks("sales");
   }, []);
 
-  const handleOpen = () => setOpen(true);
   return (
     <div>
       <Typography variant="h4" style={{ color: "red" }} py={"10px"} mb={3}>
@@ -46,7 +51,8 @@ const Firms = () => {
         >
           NEW FİRM
         </Button>
-        <FirmModal open={open} setOpen={setOpen} />
+        {/* <FirmModal open={open} setOpen={setOpen} /> */}
+        <FirmModalFeatured open={open} setOpen={setOpen} info={info} setInfo={setInfo} />
       </div>
       <div
         style={{
@@ -58,8 +64,7 @@ const Firms = () => {
         }}
       >
         {firms.map((firm) => (
-
-        <FirmCard key={firm._id} {...firm} />
+          <FirmCard key={firm._id} {...firm} />
         ))}
       </div>
     </div>
