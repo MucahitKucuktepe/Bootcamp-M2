@@ -20,7 +20,15 @@ const style = {
 export default function BasicModal({ setOpen, open, info, setInfo }) {
   const { name, address, phone, image } = info;
   const { postStock, putStock } = useStock();
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setInfo({
+      name: "",
+      address: "",
+      phone: "",
+      image: "",
+    });
+  };
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
@@ -33,13 +41,6 @@ export default function BasicModal({ setOpen, open, info, setInfo }) {
     } else {
       postStock("firms", info);
     }
-
-    setInfo({
-      name: "",
-      address: "",
-      phone: "",
-      image: "",
-    });
     handleClose();
   };
 
