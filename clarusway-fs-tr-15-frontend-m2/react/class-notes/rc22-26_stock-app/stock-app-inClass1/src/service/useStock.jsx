@@ -55,7 +55,7 @@ const useStock = () => {
 
       // getFirms();
       toastSuccessNotify("Yeni Firma Eklendi");
-      getStocks("firms");
+      getStocks(url);
       console.log(data.data);
     } catch (error) {
       dispatch(fetchFail());
@@ -73,7 +73,7 @@ const useStock = () => {
       const { data } = await axiosWithToken.put(`/${url}/${info._id}`, info);
       toastSuccessNotify("Firma Güncellendi");
       // getFirms();
-      getStocks("firms");
+      getStocks(url);
       console.log(data.data);
     } catch (error) {
       dispatch(fetchFail());
@@ -93,7 +93,7 @@ const useStock = () => {
       await axiosWithToken.delete(`/${url}/${id}/`);
       toastSuccessNotify("Silme işlemi başarili");
       // getFirms();
-      getStocks("firms");
+      getStocks(url);
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify("Firma Listeleme İşlemi başarisiz");

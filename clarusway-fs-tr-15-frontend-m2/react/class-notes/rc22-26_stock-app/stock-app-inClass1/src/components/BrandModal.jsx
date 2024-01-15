@@ -19,7 +19,7 @@ const style = {
 
 export default function BrandModal({ setOpen, open, info, setInfo }) {
   const { name, image } = info;
-  const { postStock, putStock } = useStock();
+  const { postStock, putStock, getStocks } = useStock();
   const handleClose = () => {
     setOpen(false);
     setInfo({
@@ -33,12 +33,12 @@ export default function BrandModal({ setOpen, open, info, setInfo }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (info._id) {
-      putStock("firms", info);
+      putStock("brands", info);
     } else {
-      postStock("firms", info);
+      postStock("brands", info);
     }
+    getStocks("brands");
     handleClose();
   };
 

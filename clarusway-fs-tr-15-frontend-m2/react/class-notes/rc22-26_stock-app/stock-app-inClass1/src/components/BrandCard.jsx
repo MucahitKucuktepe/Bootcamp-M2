@@ -10,7 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import useStock from "../service/useStock";
 import { btnStyle } from "../styles/globalStyles";
 
-const BrandCard = ({ brand, setInfo, handleOpen }) => {
+const BrandCard = ({ brand, setInfo, handleOpen}) => {
   const { deleteStock } = useStock();
   const { name, image, _id } = brand;
   return (

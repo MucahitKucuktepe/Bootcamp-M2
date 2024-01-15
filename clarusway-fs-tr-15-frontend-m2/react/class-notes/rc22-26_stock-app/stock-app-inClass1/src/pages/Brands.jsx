@@ -38,7 +38,7 @@ const Brands = () => {
       >
         NEW BRAND
       </Button>
-      <BrandModal open={open}  setOpen={setOpen} info={info} setInfo={setInfo}/>
+      <BrandModal open={open} setOpen={setOpen} info={info} setInfo={setInfo} />
       <div
         style={{
           display: "flex",
@@ -49,7 +49,12 @@ const Brands = () => {
         }}
       >
         {brands.map((brand) => (
-          <BrandCard key={brand._id} brand={brand} />
+          <BrandCard
+            key={brand._id}
+            brand={brand}
+            setInfo={setInfo}
+            handleOpen={handleOpen}
+          />
         ))}
       </div>
     </div>
