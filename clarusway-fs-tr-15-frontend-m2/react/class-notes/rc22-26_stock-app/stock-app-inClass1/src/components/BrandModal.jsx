@@ -17,15 +17,13 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ setOpen, open, info, setInfo }) {
-  const { name, address, phone, image } = info;
+export default function BrandModal({ setOpen, open, info, setInfo }) {
+  const { name, image } = info;
   const { postStock, putStock } = useStock();
   const handleClose = () => {
     setOpen(false);
     setInfo({
       name: "",
-      address: "",
-      phone: "",
       image: "",
     });
   };
@@ -65,23 +63,6 @@ export default function BasicModal({ setOpen, open, info, setInfo }) {
               type="text"
               variant="outlined"
               value={name}
-              onChange={handleChange}
-            ></TextField>
-            <TextField
-              label="phone"
-              name="phone"
-              id="phone"
-              type="tel"
-              variant="outlined"
-              value={phone}
-              onChange={handleChange}
-            ></TextField>
-            <TextField
-              label="address"
-              name="address"
-              id="address"
-              type="text"
-              value={address}
               onChange={handleChange}
             ></TextField>
             <TextField

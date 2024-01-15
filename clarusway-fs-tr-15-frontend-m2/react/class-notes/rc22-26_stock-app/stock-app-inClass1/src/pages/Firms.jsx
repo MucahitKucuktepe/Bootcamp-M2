@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import useStock from "../service/useStock";
 import { useDispatch, useSelector } from "react-redux";
-import FirmModal from "../components/FirmModal";
+// import FirmModal from "../components/FirmModal";
 import FirmCard from "../components/FirmCard";
 import FirmModalFeatured from "../components/FirmModalFeatured";
 
