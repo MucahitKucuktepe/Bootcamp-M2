@@ -106,7 +106,7 @@ const useStock = () => {
     getStocks,
     postStock,
     deleteStock,
-    putStock
+    putStock,
   };
 };
 

@@ -1,60 +1,69 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem,GridToolbar } from "@mui/x-data-grid";
 import Products from "../pages/Products";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import useStock from "../service/useStock";
+import { useSelector } from "react-redux";
 
-const columns = [
-  { field: "_id", headerName: "#", flex: 2, headerAlign: "center" },
-  {
-    field: "category",
-    headerName: "Category",
-    flex: 1,
-    headerAlign: "center",
-    valueGetter: (params) => {
-      console.log(params);
-      return params.row.categoryId.name;
+
+
+export default function ProductTable() {
+  const getRowId = (row) => row._id;
+  const { deleteStock } = useStock();
+  const {products}=useSelector(state=>state.stock)
+  console.log(products)
+  const columns = [
+    { field: "_id", headerName: "#", flex: 2, headerAlign: "center" },
+    {
+      field: "category",
+      headerName: "Category",
+      flex: 1,
+      headerAlign: "center",
+      valueGetter: (params) => {
+        return params.row.categoryId.name;
+      },
+      align:"center"
     },
-  },
-  {
-    field: "brand",
-    headerName: "Brand",
-    flex: 1,
-    headerAlign: "center",
-    valueGetter: (params) => params.row.brandId.name,
-  },
-  {
-    field: "name",
-    headerName: "Name",
-    flex: 1,
-    headerAlign: "center",
+    {
+      field: "brand",
+      headerName: "Brand",
+      flex: 1,
+      headerAlign: "center",
+      valueGetter: (params) => params.row.brandId.name,
+      align:"center"
+    },
     
-  },
-  {
-    field: "stock",
-    headerName: "Stock",
-    type: "number",
-    flex: 1,
-    headerAlign: "center",
-  },
-  {
-    field: "actions",
-    headerName: "Actions",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    flex: 1,
-    headerAlign: "center",
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  },
-];
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 1,
+      headerAlign: "center",
+      align:"center"
+    },
+    {
+      field: "quantity",
+      headerName: "Stock",
+      type: "number",
+      flex: 1,
+      headerAlign: "center",
+      align:"center"
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "actions",
+      getActions: (params) => [
+        <GridActionsCellItem
+          icon={<DeleteForeverIcon />}
+          onClick={() => deleteStock("products",params.id)}
+          label="Delete"
+        />,
+      ],
+      align:"center"
+    },
+  ];
 
-export default function ProductTable({ products, categories, brands }) {
-  console.log(products);
-  console.log(categories);
-  console.log(brands);
-  function getRowId(row) {
-    return row._id;
-  }
   return (
     <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
@@ -68,10 +77,11 @@ export default function ProductTable({ products, categories, brands }) {
             },
           },
         }}
-        pageSizeOptions={[5]}
+        pageSizeOptions={[5,10,15]}
         checkboxSelection
         disableRowSelectionOnClick
         getRowId={getRowId}
+        slots={{ toolbar: GridToolbar }}
       />
     </Box>
   );

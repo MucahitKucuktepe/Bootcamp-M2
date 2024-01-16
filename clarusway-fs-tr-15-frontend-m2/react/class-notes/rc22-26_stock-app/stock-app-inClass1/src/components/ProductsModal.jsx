@@ -4,6 +4,10 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
 import useStock from "../service/useStock";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const style = {
   position: "absolute",
@@ -17,17 +21,18 @@ const style = {
   p: 4,
 };
 
-export default function FirmModalFeatured({ setOpen, open, info, setInfo }) {
+export default function ProductModal({
+  setOpen,
+  open,
+  info,
+  setInfo,
+  initialState,
+}) {
   const { name, address, phone, image } = info;
-  const { postStock, putStock } = useStock();
+  const { postStock } = useStock();
   const handleClose = () => {
     setOpen(false);
-    setInfo({
-      name: "",
-      address: "",
-      phone: "",
-      image: "",
-    });
+    setInfo(initialState);
   };
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -35,12 +40,7 @@ export default function FirmModalFeatured({ setOpen, open, info, setInfo }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (info._id) {
-      putStock("firms", info);
-    } else {
-      postStock("firms", info);
-    }
+    postStock("products", info);
     handleClose();
   };
 
@@ -58,8 +58,22 @@ export default function FirmModalFeatured({ setOpen, open, info, setInfo }) {
             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
             onSubmit={handleSubmit}
           >
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={""}
+                label="Age"
+                onChange={handleChange}
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
             <TextField
-              label="name"
+              label="Product name"
               name="name"
               id="name"
               type="text"
@@ -67,31 +81,7 @@ export default function FirmModalFeatured({ setOpen, open, info, setInfo }) {
               value={name}
               onChange={handleChange}
             ></TextField>
-            <TextField
-              label="phone"
-              name="phone"
-              id="phone"
-              type="tel"
-              variant="outlined"
-              value={phone}
-              onChange={handleChange}
-            ></TextField>
-            <TextField
-              label="address"
-              name="address"
-              id="address"
-              type="text"
-              value={address}
-              onChange={handleChange}
-            ></TextField>
-            <TextField
-              label="image"
-              name="image"
-              id="image"
-              type="url"
-              value={image}
-              onChange={handleChange}
-            ></TextField>
+
             {info._id ? (
               <Button
                 type="submit"

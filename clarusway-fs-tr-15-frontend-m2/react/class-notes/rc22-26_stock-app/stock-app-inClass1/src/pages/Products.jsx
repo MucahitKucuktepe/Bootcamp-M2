@@ -4,21 +4,21 @@ import useStock from "../service/useStock";
 import { useSelector } from "react-redux";
 import ProductsModal from "../components/ProductsModal";
 import ProductTable from "../components/ProductTable";
+import { useState } from "react";
 
 export default function Products() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const [info, setInfo] = React.useState({
+  const initialState = {
+    categoryId:"",
+    brandId:"",
     name: "",
-    phone: "",
-    address: "",
-    image: "",
-  });
+ 
+  };
+  const [info, setInfo] = useState({initialState});
 
   //? Modal states finish
 
-  const { products, categories, brands } = useSelector((state) => state.stock);
-  console.log(products);
   const { getStocks } = useStock();
   React.useEffect(() => {
     getStocks("products");
@@ -52,8 +52,9 @@ export default function Products() {
         setOpen={setOpen}
         info={info}
         setInfo={setInfo}
+        initialState={initialState}
       />
-      <ProductTable products={products} categories={categories} brands={brands} />
+      <ProductTable />
     </div>
   );
 }
