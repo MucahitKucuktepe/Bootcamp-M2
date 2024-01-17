@@ -34,7 +34,7 @@ const useStock = () => {
       // );
       const { data } = await axiosWithToken(`${url}`);
       const apiData = data.data;
-      toastSuccessNotify("Firma Listeleme işlemi başarili");
+      toastSuccessNotify(`${url} bilgileri listelendi`);
       dispatch(getStockSuccess({ apiData, url }));
 
       console.log(data.data);

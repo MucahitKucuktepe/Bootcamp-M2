@@ -6,6 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 // import FirmModal from "../components/FirmModal";
 import FirmCard from "../components/FirmCard";
 import FirmModalFeatured from "../components/FirmModalFeatured";
+import TableSkeleton, {
+  CardSkeleton,
+  ErrorMsg,
+  NoDataMsg,
+} from "../components/DataFetchMsg";
 
 const Firms = () => {
   //? Modal states start
@@ -21,7 +26,7 @@ const Firms = () => {
   //? Modal states finish
 
   const dispatch = useDispatch();
-  const { firms } = useSelector((state) => state.stock);
+  const { firms, error, loading } = useSelector((state) => state.stock);
   console.log(firms);
   const { getStocks } = useStock();
   useEffect(() => {
@@ -59,6 +64,9 @@ const Firms = () => {
           setInfo={setInfo}
         />
       </div>
+
+      {error && <ErrorMsg />}
+      {!firms.length && !error && <NoDataMsg />}
       <div
         style={{
           marginTop: "3rem",
@@ -68,18 +76,31 @@ const Firms = () => {
           justifyContent: "space-around",
         }}
       >
-        {firms.map((firm) => (
-          <FirmCard
-            key={firm._id}
-            firm={firm}
-            open={open}
-            setOpen={setOpen}
-            info={info}
-            setInfo={setInfo}
-            handleOpen={handleOpen}
-          />
-        ))}
+        {loading && firms.map((item) => (<CardSkeleton key={item._id} />))}
       </div>
+      {!error && (
+        <div
+          style={{
+            marginTop: "3rem",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "2rem",
+            justifyContent: "space-around",
+          }}
+        >
+          {firms.map((firm) => (
+            <FirmCard
+              key={firm._id}
+              firm={firm}
+              open={open}
+              setOpen={setOpen}
+              info={info}
+              setInfo={setInfo}
+              handleOpen={handleOpen}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -33,13 +33,13 @@ const useAuthCalls = () => {
       console.log(error);
     }
   };
-  const register = async (userregister) => {
-    console.log(userregister);
+  const register = async (value) => {
+    console.log(value);
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/users/`,
-        userregister
+        value
       );
     
       toastSuccessNotify("Register işlemi başarali");
