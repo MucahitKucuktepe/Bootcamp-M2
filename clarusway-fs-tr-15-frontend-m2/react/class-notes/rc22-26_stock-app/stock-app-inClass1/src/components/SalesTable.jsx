@@ -18,7 +18,7 @@ export default function SalesTable({ info, setInfo, handleOpen }) {
       flex: 1,
       headerAlign: "center",
       valueGetter: (params) => {
-        return params.row.createdAt;
+        return ( new Date((params.row.createdAt))).toLocaleDateString();
       },
       align: "center",
     },

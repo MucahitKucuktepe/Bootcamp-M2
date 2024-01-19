@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
-import useStock from '../service/useStock';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import useStock from "../service/useStock";
+import { useSelector } from "react-redux";
+import KPI from "../components/KPI";
+import Charts from "../components/Charts";
 
 const Home = () => {
-  
   return (
-    <div>
+    <>
+      <KPI />
+      <Charts />
+    </>
+  );
+};
 
-    </div>
-  )
-}
-
-export default Home
+export default Home;
