@@ -117,7 +117,7 @@ export default function SalesModal({
               id="price"
               type="number"
               variant="outlined"
-              value={price}
+              value={price ||""}
               onChange={handleChange}
             ></TextField>
             {info.amount ? (

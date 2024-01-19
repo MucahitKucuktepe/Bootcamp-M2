@@ -137,7 +137,7 @@ export default function PurchasesModal({
               id="price"
               type="number"
               variant="outlined"
-              value={price}
+              value={price ||"" }
               onChange={handleChange}
             ></TextField>
             {info.amount ? (
