@@ -2,7 +2,7 @@ import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 import { useDispatch } from "react-redux";
 import useAxios from "./Useaxios";
-import { fetchFail, fetchStart, getStockSuccess } from "../features/stockSlice";
+import { fetchFail, fetchStart, getPromiseSuccess, getStockSuccess } from "../features/stockSlice";
 const useStock = () => {
   const dispatch = useDispatch();
   const { axiosWithToken } = useAxios();
@@ -32,7 +32,7 @@ const useStock = () => {
       //   `${process.env.REACT_APP_BASE_URL}/auth/login/`,
       //   userInfo
       // );
-      const { data } = await axiosWithToken(`${url}`);
+      const { data } = await axiosWithToken(`/${url}/`);
       const apiData = data.data;
       toastSuccessNotify(`${url} bilgileri listelendi`);
       dispatch(getStockSuccess({ apiData, url }));
@@ -44,6 +44,30 @@ const useStock = () => {
       console.log(error);
     }
   };
+
+  const getPromiseStock = async () => {
+    dispatch(fetchStart());
+    try {
+      const [products, purchases, brands, firms] = await Promise.all([
+        axiosWithToken("/products/"),
+        axiosWithToken("/purchases/"),
+        axiosWithToken("/brands/"),
+        axiosWithToken("/firms/"),
+      ]);
+      dispatch(
+        getPromiseSuccess([
+          products?.data,
+          purchases?.data,
+          brands?.data,
+          firms?.data,
+        ])
+      );
+    } catch (error) {
+      dispatch(fetchFail());
+      console.log(error);
+    }
+  };
+
   const postStock = async (url = "firms", info) => {
     dispatch(fetchStart());
     try {
@@ -70,7 +94,10 @@ const useStock = () => {
       //   `${process.env.REACT_APP_BASE_URL}/auth/login/`,
       //   userInfo
       // );
-      const { data } = await axiosWithToken.put(`/${url}/${info._id}`, info);
+      const { data } = await axiosWithToken.put(
+        `/${url}/${info._id || info.id}`,
+        info
+      );
       toastSuccessNotify("Firma Güncellendi");
       // getFirms();
       getStocks(url);
@@ -107,6 +134,7 @@ const useStock = () => {
     postStock,
     deleteStock,
     putStock,
+    getPromiseStock,
   };
 };
 

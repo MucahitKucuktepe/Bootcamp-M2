@@ -7,8 +7,9 @@ import ProductTable from "../components/ProductTable";
 import { useState } from "react";
 import TableSkeleton, { ErrorMsg, NoDataMsg } from "../components/DataFetchMsg";
 import PurchasesTable from "../components/PurchasesTable";
+import PurchasesModal from "../components/PurchasesModal";
 
-export default function Products() {
+export default function Purchases() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const initialState = {
@@ -22,12 +23,14 @@ export default function Products() {
   const { purchases, loading, error } = useSelector((state) => state.stock);
   //? Modal states finish
   console.log(purchases);
-  const { getStocks } = useStock();
+  const { getStocks, getPromiseStock } = useStock();
   React.useEffect(() => {
-    getStocks("products");
-    getStocks("categories");
-    getStocks("brands");
-    getStocks("purchases");
+    // getStocks("products");
+    // getStocks("categories");
+    // getStocks("brands");
+    // getStocks("purchases");
+    // getStocks("firms");
+    getPromiseStock()
   }, []);
   return (
     <div>
@@ -51,17 +54,27 @@ export default function Products() {
       >
         NEW PURCHASES
       </Button>
-      <ProductsModal
+      <PurchasesModal
         open={open}
         setOpen={setOpen}
         info={info}
         setInfo={setInfo}
         initialState={initialState}
+      
       />
       {error && <ErrorMsg />}
       {!purchases.length && !error && <NoDataMsg />}
       {loading && <TableSkeleton />}
-      {!error && <PurchasesTable />}
+      {!error && (
+        <PurchasesTable
+          open={open}
+          setOpen={setOpen}
+          info={info}
+          setInfo={setInfo}
+          initialState={initialState}
+          handleOpen={handleOpen}
+        />
+      )}
     </div>
   );
 }

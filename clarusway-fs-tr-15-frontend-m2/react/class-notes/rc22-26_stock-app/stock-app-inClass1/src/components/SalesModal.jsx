@@ -23,7 +23,7 @@ const style = {
   p: 4,
 };
 
-export default function PurchasesModal({
+export default function SalesModal({
   setOpen,
   open,
   info,
@@ -31,9 +31,8 @@ export default function PurchasesModal({
   initialState,
 }) {
   const { brands, firms, products } = useSelector((state) => state.stock);
-  const { brandId, firmId, productId, quantity, price } = info;
-  console.log(Boolean(info.amount));
-  const navigate = useNavigate();
+  const { brandId, productId, quantity, price } = info;
+  console.log(Boolean(info.brandId));
   const { postStock, putStock } = useStock();
   const handleClose = () => {
     setOpen(false);
@@ -46,10 +45,11 @@ export default function PurchasesModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (info.amount) {
-      putStock("purchases", info);
+      putStock("sales", info);
     } else {
-      postStock("purchases", info);
+      postStock("sales", info);
     }
+    setInfo(initialState)
     handleClose();
   };
 
@@ -67,33 +67,13 @@ export default function PurchasesModal({
             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
             onSubmit={handleSubmit}
           >
-            <FormControl fullWidth>
-              <InputLabel id="FirmId">Firm</InputLabel>
-              <Select
-                labelId="FirmId"
-                id="FirmId"
-                value={firmId?._id || firmId || ""}
-                label="Firm"
-                name="firmId"
-                onChange={handleChange}
-              >
-                <MenuItem onClick={() => navigate("/stock/firms/")}>
-                  New Firm
-                </MenuItem>
-                <hr/>
-                {firms.map((item) => (
-                  <MenuItem key={item._id} value={item._id}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+          
             <FormControl fullWidth>
               <InputLabel id="brandId">Brand</InputLabel>
               <Select
                 labelId="brandId"
                 id="brandId"
-                value={brandId?._id || brandId || ""}
+                value={brandId?._id || brandId ||""}
                 label="Brand"
                 name="brandId"
                 onChange={handleChange}
@@ -110,7 +90,7 @@ export default function PurchasesModal({
               <Select
                 labelId="productId"
                 id="productId"
-                value={productId?._id || productId || ""}
+                value={productId?._id || productId ||""}
                 label="Brand"
                 name="productId"
                 onChange={handleChange}
@@ -147,7 +127,7 @@ export default function PurchasesModal({
                 size="large"
                 style={{ background: "red" }}
               >
-                Edit Purchases
+                Edit Sales
               </Button>
             ) : (
               <Button
@@ -156,7 +136,7 @@ export default function PurchasesModal({
                 size="large"
                 style={{ background: "green" }}
               >
-                Add Purchases
+                Add Sales
               </Button>
             )}
           </Box>

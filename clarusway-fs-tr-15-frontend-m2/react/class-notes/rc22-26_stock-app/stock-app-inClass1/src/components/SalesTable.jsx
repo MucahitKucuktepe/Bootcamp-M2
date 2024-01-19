@@ -6,11 +6,11 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import useStock from "../service/useStock";
 import { useSelector } from "react-redux";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-export default function PurchasesTable({ info, setInfo, handleOpen }) {
+export default function SalesTable({ info, setInfo, handleOpen }) {
   const getRowId = (row) => row._id;
   const { deleteStock } = useStock();
-  const { purchases } = useSelector((state) => state.stock);
-  console.log(purchases);
+  const { sales } = useSelector((state) => state.stock);
+  console.log(sales);
   const columns = [
     {
       field: "createdAt",
@@ -22,14 +22,7 @@ export default function PurchasesTable({ info, setInfo, handleOpen }) {
       },
       align: "center",
     },
-    {
-      field: "firmId",
-      headerName: "Firm",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-      valueGetter: (params) => params.row.firmId?.name,
-    },
+   
     {
       field: "brandId",
       headerName: "Brand",
@@ -86,7 +79,7 @@ export default function PurchasesTable({ info, setInfo, handleOpen }) {
         <GridActionsCellItem
           icon={<DeleteForeverIcon />}
           onClick={() => {
-            deleteStock("purchases", params.id);
+            deleteStock("sales", params.id);
           }}
           label="Delete"
         />,
@@ -99,7 +92,7 @@ export default function PurchasesTable({ info, setInfo, handleOpen }) {
     <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
         autoHeight
-        rows={purchases}
+        rows={sales}
         columns={columns}
         initialState={{
           pagination: {
