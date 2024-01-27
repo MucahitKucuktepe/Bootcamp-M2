@@ -15,7 +15,7 @@ const Charts = () => {
   }));
   const purchasesData = purchases?.map((item) => ({
     date: new Date(item.createdAt).toLocaleDateString("tr"),
-    amount: item.amount,
+    price: item.amount,
   }));
 
   return (
@@ -40,7 +40,7 @@ const Charts = () => {
             className="h-72 mt-4"
             data={purchasesData}
             index="date"
-            categories={["amount"]}
+            categories={["price"]}
             colors={["cyan"]}
             valueFormatter={valueFormatter}
           />
