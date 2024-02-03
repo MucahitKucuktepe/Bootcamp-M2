@@ -1,8 +1,13 @@
+
+
 import React from 'react'
 
 const page = () => {
+
   return (
-    <div>page</div>
+    <div>
+       <h1 className="text-2xl text-center">Projects</h1>
+    </div>
   )
 }
 
