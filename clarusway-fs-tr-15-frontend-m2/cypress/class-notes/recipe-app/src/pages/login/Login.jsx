@@ -21,7 +21,7 @@ const Login = () => {
     <LoginContainer>
       <FormContainer>
         <StyledImg src={meal} />
-        <Header>
+        <Header data-test="loginHeader">
           {`<Anthony/>`}Recipe
         </Header>
         <StyledForm onSubmit={loginSubmit}>
